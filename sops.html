@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visitor Guide | Emmanuel Hospital</title>
+
+<style>
+:root{
+  --primary-green:#0b3d2e;
+  --accent-yellow:#ffc107;
+}
+
+/* ================= GLOBAL STYLES ================= */
+body{
+  font-family: Arial, sans-serif;
+  background:#f9f9f9;
+  margin:0;
+  padding:0;
+}
+
+/* ================= TOP BAR ================= */
+.top-bar{
+  background: var(--primary-green);
+  color: white;
+  padding: 8px 0;
+  font-size: 14px;
+}
+
+.top-container{
+  width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.top-left a{
+  color: white;
+  text-decoration: none;
+  margin-right: 20px;
+  padding: 5px 8px;
+  transition: .3s;
+}
+
+.top-left a:hover{
+  color: var(--accent-yellow);
+}
+
+/* ================= NAVIGATION ================= */
+nav{
+  background: var(--primary-green);
+  color:white;
+  padding:15px 0;
+}
+
+.nav-container{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  width:90%;
+  margin:auto;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.brand img{
+  width:45px;
+  height:45px;
+}
+
+.brand h2{
+  font-size:18px;
+  color:white;
+}
+
+.menu{
+  list-style:none;
+  display:flex;
+  gap:25px;
+  margin:0;
+  padding:0;
+}
+
+.menu li{
+  position:relative;
+}
+
+.menu li a{
+  color:white;
+  text-decoration:none;
+  padding:10px;
+  font-weight:bold;
+  font-size:16px;
+}
+
+.menu li a:hover{
+  background: var(--accent-yellow);
+  border-radius:5px;
+  color: var(--primary-green);
+}
+
+.dropdown-content{
+  display:none;
+  position:absolute;
+  background: rgba(173,166,166,0.95);
+  min-width:200px;
+  box-shadow:0 8px 16px rgba(0,0,0,0.2);
+  border-radius:5px;
+  padding:5px 0;
+  max-height:400px;
+  overflow-y:auto;
+  z-index:100;
+}
+
+.dropdown:hover .dropdown-content{
+  display:block;
+}
+
+.dropdown-content a{
+  color:#333;
+  padding:10px 15px;
+  display:block;
+  text-decoration:none;
+  font-size:14px;
+}
+
+.dropdown-content a:hover{
+  background:#eee;
+  color:var(--primary-green);
+  font-weight:bold;
+}
+
+/* ================= PAGE TITLE ================= */
+.page-title{
+  width:85%;
+  margin:40px auto 20px;
+  text-align:center;
+  color:var(--primary-green);
+  font-size:32px;
+}
+
+/* ================= CENTERED SUBMENU ================= */
+.submenu-bar{
+  width:100%;
+  background:#e0e0e0;
+  padding:10px 0;
+  box-shadow:inset 0 -1px 0 rgba(0,0,0,0.1);
+  display:flex;
+  justify-content:center;
+  overflow-x:auto;
+
+  /* sticky */
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.submenu{
+  display:flex;
+  gap:15px;
+  white-space:nowrap;
+}
+
+.submenu a{
+  text-decoration:none;
+  padding:8px 16px;
+  border-radius:6px;
+  color:var(--primary-green);
+  font-weight:600;
+  font-size:14px;
+  transition:.3s;
+}
+
+.submenu a:hover,
+.submenu a.active{
+  background: var(--accent-yellow);
+}
+
+/* ================= CONTENT ================= */
+.content{
+  width:85%;
+  margin:40px auto 60px;
+  background:white;
+  padding:40px;
+  border-radius:10px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.05);
+}
+
+.content h2{
+  color:var(--primary-green);
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.content p{
+  text-align:center;
+  color:#555;
+  line-height:1.6;
+  margin-bottom:30px;
+}
+
+/* ================= TABLE ================= */
+.sop-table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:20px;
+}
+
+.sop-table th,
+.sop-table td{
+  border:1px solid #ddd;
+  padding:12px 15px;
+  text-align:left;
+}
+
+.sop-table th{
+  background:var(--primary-green);
+  color:white;
+}
+
+.sop-table tr:nth-child(even){
+  background:#f9f9f9;
+}
+
+.sop-table tr:hover{
+  background:#f1f1f1;
+}
+
+.sop-table a{
+  color:var(--primary-green);
+  font-weight:600;
+  text-decoration:none;
+}
+
+.sop-table a:hover{
+  color:var(--accent-yellow);
+}
+
+/* ================= FOOTER ================= */
+footer{
+  background: var(--primary-green);
+  color:white;
+  text-align:center;
+  padding:20px;
+  margin-top:40px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:900px){
+  .nav-container{
+    flex-direction:column;
+    gap:15px;
+  }
+
+  .menu{
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:15px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+<div class="top-container">
+  <div class="top-left">
+    <a href="ourdoctorss.html">Our Doctors</a>
+    <a href="onlinetestresult.php">Online Test Results</a>
+    <a href="billing.html">Real-time Billing</a>
+  </div>
+  <div>02-8711-4141 📞</div>
+</div>
+</div>
+<!-- NAVIGATION -->
+<nav>
+    <div class="nav-container">
+        <div class="brand">
+            <img src="EM.png" alt="Hospital Logo">
+            <h2>EMMANUEL HOSPITAL</h2>
+        </div>
+
+        <ul class="menu">
+            <li><a href="mainn.html">Home</a></li>
+            <li class="dropdown">
+                <a href="about.html">About Us</a>
+                <div class="dropdown-content">
+                    <a href="#">Our History</a>
+                    <a href="#">Our Mission</a>
+                    <a href="#">Our Vision</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="patientsandvissitors.html">Patients & Visitors</a>
+                <div class="dropdown-content">
+                    <a href="#">Patient Room</a>
+                    <a href="#">Visitor Guide</a>
+                    <a href="#">Application Form</a>
+                    <a href="#">Patient Success stories</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="articles.html">Articles</a>
+                <div class="dropdown-content">
+                    <a href="#">Health Tips</a>
+                    <a href="#">News</a>
+                    <a href="#">Events</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="healthandservices.html">Health Services</a>
+                <div class="dropdown-content">
+                    <a href="#">Emergency Care</a>
+                    <a href="#">Outpatient Services</a>
+                    <a href="#">Inpatient Services</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="researchhh.html">Research Ethics Review Board</a>
+                <div class="dropdown-content">
+                    <a href="about.html">About</a>
+                    <a href="sops.html">SOPS</a>
+                    <a href="forms.html">Forms</a>
+                    <a href="protocols.html">2024 Approved Protocols</a>
+                    <a href="#">Process Flow</a>
+                    <a href="#">Cut Off And Meeting Dates</a>
+                    <a href="qsf.html">FAQS</a>
+                    <a href="#">Contact Us</a>
+                    <a href="#">Research Guidelines</a>
+                    <a href="#">Ethics Committee</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="trainings.html">Trainings</a>
+                <div class="dropdown-content">
+                    <a href="#">Medical Training</a>
+                    <a href="#">Staff Development</a>
+                </div>
+            </li>
+            <li><a href="#">Foundation</a></li>
+            <li><a href="contactus.html">Contact Us</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- PAGE TITLE -->
+<h1 class="page-title">Research Ethics Review Board</h1>
+
+<!-- SUBMENU -->
+<div class="submenu-bar">
+  <div class="submenu">
+    <a href="abbout.html">About</a>
+    <a href="sops.html" class="active">SOPS</a>
+    <a href="forms.html">Forms</a>
+    <a href="protocols.html">2024 Approved Protocols</a>
+    <a href="#">Process Flow</a>
+    <a href="#">Cut off and meeting dates</a>
+    <a href="qsf.html">FAQ</a>
+    <a href="#">Contact Us</a>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+<h2>Standard Operating Procedures</h2>
+<p>Click on the links below to download the SOP files.</p>
+
+<table class="sop-table">
+<tr>
+<th>Chapter / Section</th>
+<th>Description</th>
+<th>Download</th>
+</tr>
+<tr>
+<td>Cover Page</td>
+<td>Introduction and overview of the SOP document.</td>
+<td><a href="#">Download</a></td>
+</tr>
+<tr>
+<td>Table of Contents</td>
+<td>List of all chapters, sections, and appendices.</td>
+<td><a href="#">Download</a></td>
+</tr>
+<tr>
+<td>Chapter 01</td>
+<td>Purpose, Scope, and Definitions.</td>
+<td><a href="#">Download</a></td>
+</tr>
+<tr>
+<td>Chapter 02</td>
+<td>Research Proposal Submission Guidelines.</td>
+<td><a href="#">Download</a></td>
+</tr>
+<tr>
+<td>Chapter 03</td>
+<td>Review Procedures and Evaluation Criteria.</td>
+<td><a href="#">Download</a></td>
+</tr>
+<tr>
+<td>Chapter 04</td>
+<td>Approval Process and Ethics Clearance.</td>
+<td><a href="#">Download</a></td>
+</tr>
+<tr>
+<td>Chapter 05</td>
+<td>Monitoring and Reporting Requirements.</td>
+<td><a href="#">Download</a></td>
+</tr>
+<tr>
+<td>Chapter 06</td>
+<td>Amendments, Updates, and Record Keeping.</td>
+<td><a href="#">Download</a></td>
+</tr>
+</table>
+</div>
+
+<!-- FOOTER -->
+<footer>
+<p>© 2024 Emmanuel Hospital</p>
+</footer>
+
+</body>
+</html>

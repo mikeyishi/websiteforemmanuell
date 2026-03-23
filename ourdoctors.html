@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Navigation</title>
+
+    <style>
+        /* ================= GLOBAL STYLES ================= */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ================= TOP BAR ================= */
+        .top-bar {
+            background-color: #0b3d2e; /* Primary Green */
+            color: white;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+
+        .top-container {
+            width: 90%;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-left a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+            padding: 5px 8px;
+            transition: 0.3s;
+        }
+
+        .top-left a:hover {
+            color: #ffc107; /* Accent Yellow */
+        }
+
+        .top-container div {
+            font-size: 14px;
+        }
+
+        /* ================= NAVIGATION ================= */
+        nav {
+            background-color: #0b3d2e; /* Primary Green */
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            margin: auto;
+        }
+
+        .nav-container .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-container .brand img {
+            width: 45px;
+            height: 45px;
+        }
+
+        .nav-container .brand h2 {
+            font-size: 18px;
+            color: white;
+        }
+
+        .menu {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        .menu li {
+            position: relative;
+        }
+
+        .menu li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            font-weight: bold;
+            font-size: 16px;
+            position: relative;
+        }
+
+        .menu li a:hover {
+            background-color: #ffc107; /* Accent Yellow */
+            border-radius: 5px;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: rgba(173, 166, 166, 0.9); /* Semi-transparent white */
+            color: #333; /* Dark text for better contrast */
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(7, 37, 21, 0.2);
+            z-index: 1;
+            padding: 10px;
+            border-radius: 5px;
+            opacity: 0; /* Initially hide the dropdown */
+            transition: opacity 0.3s ease;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            opacity: 1; /* Show the dropdown when hovering */
+        }
+
+        .dropdown-content a {
+            color: #333; /* Dark text for visibility */
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+            font-weight: normal; /* Slightly lighter for dropdown items */
+            transition: 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #0a0a0a; /* Light grey background */
+            color: #0b3d2e; /* Primary green on hover */
+            font-weight: bold; /* Make text bold on hover */
+        }
+
+        /* ================= CONTENT SECTIONS ================= */
+        .section {
+            width: 90%;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .section h1, .section h2 {
+            color: #0b3d2e;
+            text-align: center;
+        }
+
+        .section p {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        /* ================= CENTERING THE LIST ITEMS ================= */
+        .section ul {
+            list-style: none;
+            padding: 0;
+            text-align: center; /* Center the list */
+            display: flex;
+            flex-wrap: wrap; /* Ensure the items can wrap to next line */
+            justify-content: center; /* Center the items horizontally */
+            gap: 20px; /* Space between items */
+        }
+
+        .section ul li {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center the content inside the list item */
+            gap: 10px;
+        }
+
+        .section ul li a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .section ul li img {
+            width: 250px;  /* Set fixed width of 250px */
+            height: 250px; /* Set fixed height of 250px */
+            object-fit: contain;
+            border-radius: 5px; /* Optional: add rounded corners to images */
+            transition: transform 0.3s ease, filter 0.3s ease; /* Smooth transition */
+        }
+
+        .section ul li:hover img {
+            transform: scale(1.1); /* Enlarge image on hover */
+            filter: brightness(1.2); /* Brighten image on hover */
+        }
+
+        .section ul li a:hover {
+            color: #0b3d2e; /* Change text color when link is hovered */
+        }
+
+        /* ================= FOOTER ================= */
+        footer {
+            background-color: #0b3d2e;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 768px) {
+            .menu {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .section {
+                width: 100%;
+                padding: 15px;
+            }
+
+            .section ul li img {
+                width: 150px; /* Adjust the image size on small screens */
+                height: 150px; /* Adjust the image size on small screens */
+            }
+        }
+
+        
+/* ================= CONTENT SECTIONS ================= */
+.section {
+    width: 85%;
+    margin: 60px auto;
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.section h1,
+.section h2 {
+    color: var(--primary-green);
+    margin-bottom: 20px;
+}
+
+.section p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.section ul {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.section ul li {
+    margin-bottom: 8px;
+}
+
+/* ================= MAP ================= */
+.map-container {
+    margin-top: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* ================= FOOTER ================= */
+.footer {
+    background: var(--primary-green);
+    color: white;
+    padding: 30px 0;
+    text-align: center;
+    margin-top: 60px;
+}
+
+.footer p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+    .nav-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .menu {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+}
+
+
+/* BREADCRUMB */
+.breadcrumb{
+    background:#e9ecef;
+    padding:12px 40px;
+    font-size:14px;
+}
+
+/* SEARCH SECTION */
+.section{
+    padding:25px 40px 10px;
+}
+.section h1{
+    color:#0b3d2e;
+    font-size:28px;
+}
+.section p{
+    color:#555;
+    margin-bottom:15px;
+}
+.search-box{
+    display:flex;
+    max-width:550px;
+}
+.search-box input{
+    flex:1;
+    padding:12px;
+    border:2px solid #0b3d2e;
+    border-right:none;
+    border-radius:8px 0 0 8px;
+}
+.search-box button{
+    padding:12px 25px;
+    border:none;
+    background:#c62828;
+    color:white;
+    font-weight:bold;
+    border-radius:0 8px 8px 0;
+    cursor:pointer;
+}
+
+/* MAIN LAYOUT */
+.main-container{
+    display:flex;
+    gap:25px;
+    padding:20px 40px 40px;
+}
+
+/* SIDEBAR */
+.sidebar{
+    width:280px;
+    background:white;
+    border-radius:12px;
+    padding:20px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    border-top:6px solid #0b3d2e;
+}
+.sidebar h3{
+    margin-bottom:10px;
+    color:#0b3d2e;
+}
+.filter-list label{
+    display:block;
+    margin-bottom:8px;
+    cursor:pointer;
+}
+
+/* DOCTOR AREA */
+.doctor-area{
+    flex:1;
+    max-width:900px;
+}
+.results-bar{
+    background:#0b3d2e;
+    color:white;
+    padding:12px 20px;
+    border-radius:8px;
+    margin-bottom:15px;
+}
+.results-bar span{
+    color:#ffd700;
+    font-weight:bold;
+}
+
+/* DOCTOR CARD */
+.doctor-card{
+    display:flex;
+    background:white;
+    border-radius:14px;
+    overflow:hidden;
+    margin-bottom:20px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.1);
+    border-left:8px solid #0b3d2e;
+}
+.doctor-img{
+    width:200px;
+    height:180px;
+    object-fit:cover;
+    background:#eee;
+}
+.doctor-info{
+    padding:20px;
+}
+.doctor-name{
+    font-size:20px;
+    color:#0b3d2e;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+.specialty{
+    color:#444;
+    margin-bottom:15px;
+}
+.call-btn{
+    background:#c62828;
+    color:white;
+    border:none;
+    padding:10px 18px;
+    border-radius:6px;
+    margin-right:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+.profile-btn{
+    background:#ffd700;
+    color:#0b3d2e;
+    border:none;
+    padding:10px 18px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* ================= HIGHLIGHT NAV LINK ================= */
+.top-left a {
+    text-decoration: none;
+    color: #fff; /* default color */
+    padding: 5px 10px;
+    transition: all 0.3s;
+}
+
+.top-left a.highlight {
+    background-color: #ffc107; /* yellow background */
+    color: #0b3d2e; /* dark green text */
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+
+    </style>
+</head>
+
+<body>
+<!-- TOP BAR -->
+<div class="top-bar">
+    <div class="top-container">
+        <div class="top-left">
+            <a href="ourdoctorss.html" class="highlight">Our Doctors</a>
+            <a href="onlinetestresultt.html">Online Test Results</a>
+            <a href="billing.html">Real-time Billing</a>
+            <a href="Appointment.html">Book An Appointment</a>
+        </div>
+        <div>02-8711-4141 📞</div>
+    </div>
+</div>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="nav-container">
+            <div class="brand">
+                <img src="EM.png" alt="Hospital Logo">
+                <h2>EMMANUEL HOSPITAL</h2>
+            </div>
+
+            <ul class="menu">
+                <li><a href="mainn.html">Home</a></li>
+                <li class="dropdown">
+                    <a href="#">About Us</a>
+                    <div class="dropdown-content">
+                        <a href="#">Our History</a>
+                        <a href="#">Our Mission</a>
+                        <a href="#">Our Vision</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="patientsandvissitors.html">Patients & Visitors</a>
+                    <div class="dropdown-content">
+                        <a href="#">Patient Room</a>
+                        <a href="#">Visitor Guide</a>
+                        <a href="#">Application Form</a>
+                         <a href="#">Patient Success stories</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="articles.html">Articles</a>
+                    <div class="dropdown-content">
+                        <a href="#">Health Tips</a>
+                        <a href="#">News</a>
+                        <a href="#">Events</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="healthandservices.html">Health Services</a>
+                    <div class="dropdown-content">
+                        <a href="#">Emergency Care</a>
+                        <a href="#">Outpatient Services</a>
+                        <a href="#">Inpatient Services</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="researchhh.html">Research Ethics Review Board</a>
+                    <div class="dropdown-content">
+                         <a href="about.html">About</a>
+                          <a href="sops.html">SOPS</a>
+                            <a href="forms.html">Forms</a>
+                               <a href="protocols.html">2024 Approved Protocols</a>
+                                  <a href="#">Process Flow</a>
+                                    <a href="#">Cut Off And Meeting Dates</a>
+                                     <a href="qsf">FAQS</a>
+                                      <a href="#">Contact Us</a>
+                        <a href="#">Research Guidelines</a>
+                        <a href="#">Ethics Committee</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="trainings.html">Trainings</a>
+                    <div class="dropdown-content">
+                        <a href="#">Medical Training</a>
+                        <a href="#">Staff Development</a>
+                    </div>
+                </li>
+                <li><a href="#">Foundation</a></li>
+                <li><a href="contactus.html">Contact Us</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    
+<div class="breadcrumb">
+    Home > Find a Doctor
+</div>
+
+<section class="section">
+    <h1>Find a Doctor</h1>
+    <p>Search our physician directory for any care need at Emmanuel Hospital.</p>
+
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search doctor name or specialty">
+        <button onclick="searchDoctor()">Search</button>
+    </div>
+</section>
+
+<div class="main-container">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h3>Specialties</h3>
+        <div class="filter-list">
+            <label><input type="checkbox" value="Pulmonologist" onchange="filterDoctor()"> Pulmonologist</label>
+            <label><input type="checkbox" value="General Practitioner" onchange="filterDoctor()"> General Practitioner</label>
+            <label><input type="checkbox" value="ENT (Ears, Nose & Throat)" onchange="filterDoctor()"> ENT (Ears, Nose & Throat)</label>
+            <label><input type="checkbox" value="Family Medicine" onchange="filterDoctor()"> Family Medicine</label>
+            <label><input type="checkbox" value="Cardiologist" onchange="filterDoctor()"> Cardiologist</label>
+            <label><input type="checkbox" value="Pediatrician" onchange="filterDoctor()"> Pediatrician</label>
+             <label><input type="checkbox" value="Opthalmologist" onchange="filterDoctor()"> Opthalmologist</label>
+              <label><input type="checkbox" value="Ultra Sound" onchange="filterDoctor()"> Ultra Sound</label>
+               <label><input type="checkbox" value="Resident" onchange="filterDoctor()"> Resident</label>
+                 <label><input type="checkbox" value="Dermatologist" onchange="filterDoctor()"> Dermatologist</label>
+                <label><input type="checkbox" value="Anesthesiologist" onchange="filterDoctor()"> Anesthesiologist</label>
+                <label><input type="checkbox" value="Opthalmologist" onchange="filterDoctor()"> Opthalmologist</label>
+                <label><input type="checkbox" value="OB-Gynecologist" onchange="filterDoctor()"> OB-Gynecologist</label>
+                <label><input type="checkbox" value="Infectious" onchange="filterDoctor()"> Infectious</label>
+                <label><input type="checkbox" value="Oncologist" onchange="filterDoctor()"> Oncologist</label>
+                <label><input type="checkbox" value="Endocrinologist" onchange="filterDoctor()"> Endocrinologist</label>
+                  <label><input type="checkbox" value="Diabetologist" onchange="filterDoctor()"> Diabetologist</label>
+                  <label><input type="checkbox" value="Neurologist" onchange="filterDoctor()"> Neurologist</label>
+                    <label><input type="checkbox" value="Gastroenterologist" onchange="filterDoctor()"> Gastroenterologist</label>
+                    <label><input type="checkbox" value="Gastroenterologist" onchange="filterDoctor()"> General & Cancer Surgeon</label>
+                     <label><input type="checkbox" value="Obstetrics & Gynecology" onchange="filterDoctor()"> Obstetrics & Gynecology</label>
+
+
+        </div>
+    </div>
+
+    <!-- DOCTOR LIST -->
+    <div class="doctor-area">
+        <div class="results-bar">
+            <h3><span id="totalResults">6</span> Results Found</h3>
+        </div>
+
+        <div class="doctor-card" data-name="Mark James Arce" data-specialty="Pulmonologist">
+            <img src="doctor1.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. MARK JAMES ARCE</div>
+                <div class="specialty">● Pulmonologist</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="doctorsprofile/dr.markarce.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="doctor-card" data-name="Andrea Adriatico" data-specialty="General Practitioner">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. ANDREA LOUISE ADRIATICO</div>
+                <div class="specialty">● General Practitioner</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="doctorsprofile/dr.andrealouiseadriatico.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+        
+        <div class="doctor-card" data-name="DR. ALVIN JOSEP ARROYO" data-specialty="Ultra Sound">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. ALVIN JOSEP ARROYO</div>
+                <div class="specialty">● Ultra Sound</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.alvinjoseparroyo.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+          <div class="doctor-card" data-name="DR.ANGELIE LORRAINE  PESEBRE-ONG" data-specialty="Pediatrician">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR.ANGELIE LORRAINE  PESEBRE-ONG</div>
+                <div class="specialty">● Pediatrician</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.angelielorrainepesebre-ong.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+ <div class="doctor-card" data-name="DR.ANTONINO UY FABILE" data-specialty="Anesthesiologist">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR.ANTONINO UY FABILE</div>
+                <div class="specialty">● Anesthesiologist</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.antoninouyfabile.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+         <div class="doctor-card" data-name="DR. CHESTERK E. ORTEGA" data-specialty="Oncologist">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. CHESTERK E. ORTEGA</div>
+                <div class="specialty">● Oncologist</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.chesterk.eortega.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+         <div class="doctor-card" data-name="DR. DONNA FE DOCTOR MARQUEZ" data-specialty="Pediatrician">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. DONNA FE DOCTOR MARQUEZ</div>
+                <div class="specialty">● Pediatrician</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.donnafedoctormarquez.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+        
+         <div class="doctor-card" data-name="DR. EDITHA VENERACION BAUTISTA" data-specialty="Family Medicine">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. EDITHA VENERACION BAUTISTA</div>
+                <div class="specialty">● Family Medicine</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.edithaveneracionbautista.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+          <div class="doctor-card" data-name="DR. EMILY MARCELO VIUDEZ" data-specialty="Gastroenterologist">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. EMILY MARCELO VIUDEZ</div>
+                <div class="specialty">● Gastroenterologist</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.edithaveneracionbautista.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+          <div class="doctor-card" data-name="DR. EVANGELINE MARIELI GONVERA-COTO" data-specialty="Pediatrician">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. EVANGELINE MARIELI GONVERA-COTO</div>
+                <div class="specialty">● Pediatrician</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.evangelinemarieligonvera-coto.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+         <div class="doctor-card" data-name="DR. FLORENSIO LIWAG I. SOLIS" data-specialty="Anesthesiologist">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. FLORENSIO LIWAG I. SOLIS</div>
+                <div class="specialty">● Anesthesiologist</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.florencioliwagjrsolis.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+           <div class="doctor-card" data-name="DR.FRANCIS DOMINIC VILLANGCA" data-specialty="Opthalmologist">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR.FRANCIS DOMINIC VILLANGCA</div>
+                <div class="specialty">● Opthalmologist</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.florencioliwagjrsolis.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+         <div class="doctor-card" data-name="DR. FRIA ANN CORONEL FRANCO" data-specialty="Opthalmologist">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. FRIA ANN CORONEL FRANCO</div>
+                <div class="specialty">● Opthalmologist</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.friacoronel.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+          <div class="doctor-card" data-name="DR.GLOMAR CACATIAN MALANA" data-specialty="General Surgeon">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR.GLOMAR CACATIAN MALANA</div>
+                <div class="specialty">● General Surgeon</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.friacoronel.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+         <div class="doctor-card" data-name="DR. GRACE VALDECANTOS RACHO" data-specialty="OB-Gynecologist">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. GRACE VALDECANTOS RACHO</div>
+                <div class="specialty">● OB-Gynecologist</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.gracevaldecantosracho.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+        
+         <div class="doctor-card" data-name="DR. IRENE ANASTACIA AQUINO" data-specialty="Dermatologist">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. IRENE ANASTACIA AQUINO</div>
+                <div class="specialty">● Dermatologist</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.ireneanastaciaaquino.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+         <div class="doctor-card" data-name="DR. JAN JORGE MALABANAN FRANCISCO" data-specialty="Family Medicine">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. JAN JORGE MALABANAN FRANCISCO</div>
+                <div class="specialty">● Family Medicine</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.janjorgemalabananfrancisco.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+          <div class="doctor-card" data-name="DR. JANNICE LORIE TUASON CRUZ" data-specialty="Cardiologist">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. JANNICE LORIE TUASON CRUZ</div>
+                <div class="specialty">● Cardiologist</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.jannicelorietuasoncruz.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+            <div class="doctor-card" data-name="DR. JELA POSCABLO SAN DIEGO" data-specialty=" ENT (Ears, Nose & Throat)">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. JELA POSCABLO SAN DIEGO</div>
+                <div class="specialty">● ENT (Ears, Nose & Throat)</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.jannicelorietuasoncruz.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+            <div class="doctor-card" data-name="DR. JERSEY LUMIQUED" data-specialty="Pulmonologist">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. JERSEY LUMIQUED</div>
+                <div class="specialty">● Pulmonologist</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.jannicelorietuasoncruz.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+          <div class="doctor-card" data-name="DR. JOHN ALDRIN VILLA MAYOR DE GUZMAN" data-specialty="General Surgeon">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. JOHN ALDRIN VILLA MAYOR DE GUZMAN</div>
+                <div class="specialty">● General Surgeon</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.johnaldrinvillamayordeguzman.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="doctor-card" data-name="DR.JOVY JOVENTURA ARCEO" data-specialty="ENT (Ears, Nose & Throat)">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR.JOVY JOVENTURA ARCEO</div>
+                <div class="specialty">● ENT (Ears, Nose & Throat)</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.jovyjovventuraarceo.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+          <div class="doctor-card" data-name="DR. KAMY LLEANNE YU VICTORIA" data-specialty="OB-Gynecologist">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. KAMY LLEANNE YU VICTORIA</div>
+                <div class="specialty">●OB-Gynecologist</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.kamylleanneyuvictoria.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+          <div class="doctor-card" data-name="DR. KATHLEEN ROSE IRIS RESCOTO" data-specialty="Anesthesiologist">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. KATHLEEN ROSE IRIS RESCOTO</div>
+                <div class="specialty">●Anesthesiologist</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.kathleenroseirishrescoto.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+          <div class="doctor-card" data-name="DR. KRISTINA MARIE TROCIO ZAPANTA" data-specialty="Infectious">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. KRISTINA MARIE TROCIO ZAPANTA</div>
+                <div class="specialty">●Infectious</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.kathleenroseirishrescoto.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+            <div class="doctor-card" data-name="DR. LAARNI LOU MALONZO SOTTA" data-specialty="Infectious">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. LAARNI LOU MALONZO SOTTA</div>
+                <div class="specialty">●Infectious</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.laarniloumalonzosotta.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+          <div class="doctor-card" data-name="DR. LEAH JEANETTE CASTILLO BAYAN" data-specialty="Diabetologist">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. LEAH JEANETTE CASTILLO BAYAN</div>
+                <div class="specialty">●Diabetologist</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.leahjeanettecastillobayan.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="doctor-card" data-name="DR. LOURDES DELA PENA RODRIQUEZ" data-specialty="Pediatrician">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. LOURDES DELA PENA RODRIQUEZ</div>
+                <div class="specialty">●Pediatrician</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.leahjeanettecastillobayan.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+          <div class="doctor-card" data-name="DR. LUCILA GATCHALIAN" data-specialty="OB-Gynecologist">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. LUCILA GATCHALIAN</div>
+                <div class="specialty">●OB-Gynecologist</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.lucilagatchalian.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="doctor-card" data-name="DR. MA JOSEPHINE GODY" data-specialty="ENT (Ears, Nose & Throat)">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. MA JOSEPHINE GODY</div>
+                <div class="specialty">●ENT (Ears, Nose & Throat)</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.majosephinegody.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="doctor-card" data-name="DR. MARIA NIKKI C. CRUZ" data-specialty="Endocrinologidst">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. MARIA NIKKI C. CRUZ</div>
+                <div class="specialty">●Endocrinologist</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.marianikkiccruz.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+           <div class="doctor-card" data-name="DR. MARIA SHAMYLLE CERA QUINTO" data-specialty="ENT (Ears, Nose & Throat)">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. MARIA SHAMYLLE CERA QUINTO</div>
+                <div class="specialty">●ENT (Ears, Nose & Throat)</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.mariashamylleceraquinto.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+           <div class="doctor-card" data-name="DR. MARICHELLE PILE CORONEL" data-specialty="Pediatrician">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. MARICHELLE PILE CORONEL</div>
+                <div class="specialty">●Pediatrician</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.marichellepilecoronel.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+          <div class="doctor-card" data-name="DR. MARIE AIZLE HIZON DELA CRUZ" data-specialty="Anesthesiologist">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. MARIE AIZLE HIZON DELA CRUZ</div>
+                <div class="specialty">●Anesthesiologist</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.marieaizlehizondelacruz.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+         <div class="doctor-card" data-name="DR. MARINEL MANDAPAT PAULINO" data-specialty="Pediatrician">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. MARINEL MANDAPAT PAULINO</div>
+                <div class="specialty">●Pediatrician</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.marinelmandapatpaulino.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+          <div class="doctor-card" data-name="DR. MARK ANDREW STA CRUZ LOMBOY" data-specialty="General Surgeon">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. MARK ANDREW STA CRUZ LOMBOY</div>
+                <div class="specialty">●General Surgeon</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.markandrewstacruzlomboy.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+           <div class="doctor-card" data-name="DR. MATT DEXTER CURVA" data-specialty="Resident">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. MATT DEXTER CURVA</div>
+                <div class="specialty">●Resident</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.mattdextercurva.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+         <div class="doctor-card" data-name="DR. MICHELLE MADRIAGA LIMCHU" data-specialty="Pediatrician">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. MICHELLE MADRIAGA LIMCHU</div>
+                <div class="specialty">●Pediatrician</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.michellemadriagalimchu.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+         <div class="doctor-card" data-name="DR. NASREEN LLEGOVERA" data-specialty="General Practitioner">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. NASREEN LLEGOVERA</div>
+                <div class="specialty">●General Practitioner</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.nasreenllegovera.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+           <div class="doctor-card" data-name="DR.NATHANIEL MC. JONNI TABJIE" data-specialty="Pediatrician">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR.NATHANIEL MC. JONNI TABJIE</div>
+                <div class="specialty">●Pediatrician</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.nathanielmcjonnitabijie.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+           <div class="doctor-card" data-name="DR.NINO MERICOS SUNGA PORCIUNCULA" data-specialty="Neurologist">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR.NINO MERICOS SUNGA PORCIUNCULA</div>
+                <div class="specialty">●Neurologist</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.ninoemericosungaporciuncula.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+        
+           <div class="doctor-card" data-name="DR.PAUL ANDREW SIAPCO GOCHON" data-specialty="General Surgeon">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR.PAUL ANDREW SIAPCO GOCHON</div>
+                <div class="specialty">●General Surgeon</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.paulandrewsiapcogochon.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="doctor-card" data-name="DR.PRINCESS CLARISSA MARQUEZ LOMBOY" data-specialty="Anesthesiologist">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR.PRINCESS CLARISSA MARQUEZ LOMBOY</div>
+                <div class="specialty">●Anesthesiologist</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.princessclarissamarquezlomboy.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+       
+          <div class="doctor-card" data-name="DR. RALPH JASON CALIMAG URDUANDO" data-specialty="Opthalmologist">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. RALPH JASON CALIMAG URDUANDO</div>
+                <div class="specialty">●Opthalmologist</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.ralphjasoncalimagurdaundo.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+         <div class="doctor-card" data-name="DR. RAQUEL CRUZ SISON" data-specialty="Pediatrician">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. RAQUEL CRUZ SISON</div>
+                <div class="specialty">●Pediatrician</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.raquelcruzsison.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+          <div class="doctor-card" data-name="DR. RAYMOND CASTRO DELA CRUZ" data-specialty="General Surgeon">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. RAYMOND CASTRO DELA CRUZ</div>
+                <div class="specialty">●General Surgeon</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.raymondcastrodelacruz.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+         <div class="doctor-card" data-name="DR. RICHELLE ANN SORIA SANTIAGO" data-specialty="Gastroenterologist">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. RICHELLE ANN SORIA SANTIAGO</div>
+                <div class="specialty">●Gastroenterologist</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.richelleannsoriasantiago.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+         <div class="doctor-card" data-name="DR. RITA MALONZO RAMOS" data-specialty="OB-Gynecologist">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. RITA MALONZO RAMOS</div>
+                <div class="specialty">●OB-Gynecologist</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.ritamalonzoramos.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+         <div class="doctor-card" data-name="DR. ROXANNE ANGELINE BALONDO LOPEZ" data-specialty="OB-Gynecologist">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. ROXANNE ANGELINE BALONDO LOPEZ</div>
+                <div class="specialty">●OB-Gynecologist</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.roxanneangelinebalondolopez.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+         <div class="doctor-card" data-name="DR. SHEILA SANTOS FERRER" data-specialty="OB-Gynecologist">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. SHEILA SANTOS FERRER</div>
+                <div class="specialty">●OB-Gynecologist</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.sheilasantosferrer.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+          <div class="doctor-card" data-name="DR. SHERRY LOU GATBONTON TABJIE" data-specialty="OB-Gynecologist">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. SHERRY LOU GATBONTON TABJIE</div>
+                <div class="specialty">●OB-Gynecologist</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.sherrylougatbontontabjie.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+          <div class="doctor-card" data-name="DR. STELLA VALERA ROXAS" data-specialty="General Surgeon">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. STELLA VALERA ROXAS</div>
+                <div class="specialty">●General Surgeon</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.stellavaleraroxas.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+       
+         <div class="doctor-card" data-name="DR. VALYSSA VIOLAGO" data-specialty="Ultra Sound">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. VALYSSA VIOLAGO</div>
+                <div class="specialty">●Ultra Sound</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.valyssaviolago.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+          <div class="doctor-card" data-name="DR. VICTOR EPHRAIME VENERACION PAULINO" data-specialty="Opthalmologist">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. VICTOR EPHRAIME VENERACION PAULINO</div>
+                <div class="specialty">●Opthalmologist</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.victorephraimeveneracionpaulino.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+         <div class="doctor-card" data-name="DR. VINCENT MARC MANINGAS ANDAYA" data-specialty="Family Medicine">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. VINCENT MARC MANINGAS ANDAYA</div>
+                <div class="specialty">●Family Medicine</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.vincentmarcmaningasandaya.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+         <div class="doctor-card" data-name="DR. VIRGILIO  URQUIZA BAYAN" data-specialty="IM-Pediatrician">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. VIRGILIO  URQUIZA BAYAN</div>
+                <div class="specialty">●IM-Pediatrician</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.virgiliourquizabayan.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="doctor-card" data-name="DR. VIRGILIO  URQUIZA BAYAN" data-specialty="General & Cancer Surgeon">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. VINCENT ANDREW V. REYES, MD, DPBS, FPSGS</div>
+                <div class="specialty">●General & Cancer Surgeon</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.virgiliourquizabayan.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+        
+        <div class="doctor-card" data-name="DR. VIRGILIO  URQUIZA BAYAN" data-specialty="Obstetrics & Gynecology">
+            <img src="doctor2.jpg" class="doctor-img">
+            <div class="doctor-info">
+                <div class="doctor-name">DR. MICHELLE M. LIMCHU, MD</div>
+                <div class="specialty">●Obstetrics & Gynecology</div>
+                <button class="call-btn" onclick="window.location.href='tel:+639123456789'">CALL</button>
+                <a href="http://localhost/web/doctorsprofile/dr.virgiliourquizabayan.html">
+                    <button class="profile-btn">VIEW PROFILE</button>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+function searchDoctor(){
+    let input = document.getElementById("searchInput").value.toLowerCase();
+    let cards = document.querySelectorAll(".doctor-card");
+    let count = 0;
+
+    cards.forEach(card=>{
+        let name = card.dataset.name.toLowerCase();
+        let specialty = card.dataset.specialty.toLowerCase();
+
+        if(name.includes(input) || specialty.includes(input)){
+            card.style.display="flex";
+            count++;
+        }else{
+            card.style.display="none";
+        }
+    });
+
+    document.getElementById("totalResults").textContent = count;
+}
+
+function filterDoctor(){
+    let checked = document.querySelectorAll(".filter-list input:checked");
+    let values = Array.from(checked).map(cb=>cb.value);
+    let cards = document.querySelectorAll(".doctor-card");
+    let count = 0;
+
+    cards.forEach(card=>{
+        if(values.length===0 || values.includes(card.dataset.specialty)){
+            card.style.display="flex";
+            count++;
+        }else{
+            card.style.display="none";
+        }
+    });
+
+    document.getElementById("totalResults").textContent = count;
+}
+</script>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2024 Emmanuel Hospital</p>
+    </footer>
+
+</body>
+</html>

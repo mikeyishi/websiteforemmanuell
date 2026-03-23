@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Find a Doctor | Emmanuel Hospital</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAVBAR (Same as Dashboard Design) -->
+<nav class="dashboard-nav">
+    <div class="nav-container">
+        <div class="logo">
+            <img src="em.png" alt="Emmanuel Hospital Logo" class="logo-img">
+            <h2>Emmanuel Hospital</h2>
+        </div>
+        <ul>
+            <li><a href="dashboard.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="findadoctor.html" class="active">Find a Doctor</a></li>
+            <li><a href="newsarticle.html">News</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+    <p>Home > Find a Doctor</p>
+</div>
+
+<!-- HEADER SECTION -->
+<section class="section">
+    <h1>Find a Doctor</h1>
+    <p>Search our physician directory for any care need at Emmanuel Hospital.</p>
+
+    <!-- SEARCH BOX -->
+    <div class="search-box">
+        <input type="text" placeholder="Search for a Condition, Specialty, or Physician's Name">
+        <button>Search</button>
+    </div>
+</section>
+
+   <!-- SPECIALIST DIRECTORY (Same Dashboard Design) -->
+<!-- SPECIALIST DIRECTORY (Same Dashboard Design) -->
+<section class="section">
+    <h2>Our Medical Specialists</h2>
+    <p>Click a specialty to view available doctors at Emmanuel Hospital.</p>
+
+    <div class="services-container">
+
+        <!-- PULMONOLOGIST -->
+        <div class="service-card">
+            <h3 class="clickable-card" onclick="toggleDoctor('pulmo')">
+                Pulmonologist
+            </h3>
+            <div id="pulmo" class="doctor-list">
+                <p>1.ARCE, MARK JAMES</p>
+                <p>2.LUMIQUED, JERSEY CRUZ</p>
+            </div>
+        </div>
+
+        <!-- GENERAL PRACTITIONER -->
+        <div class="service-card">
+            <h3 class="clickable-card" onclick="toggleDoctor('gp')">
+                General Practitioner
+            </h3>
+            <div id="gp" class="doctor-list">
+                <p>1.ADRIATICO, ANDREA LOUISE</p>
+                <p>2.VERA, NASREEN LLEGO</p>
+            </div>
+        </div>
+
+        <!-- ENT -->
+        <div class="service-card">
+            <h3 class="clickable-card" onclick="toggleDoctor('ent')">
+                ENT (Ears, Nose & Throat)
+            </h3>
+            <div id="ent" class="doctor-list">
+                <p>1.ARCEO, JOVY JOV VENTURA</p>
+                <p>2.QUINTO, MARIA SHAMYLLE CERA</p>
+                <p>3.SAN DIEGO, JELA POSCABLO</p>
+            </div>
+        </div>
+
+        <!-- FAMILY MEDICINE -->
+        <div class="service-card">
+            <h3 class="clickable-card" onclick="toggleDoctor('family')">
+                Family Medicine
+            </h3>
+            <div id="family" class="doctor-list">
+                <p>1.BAUTISTA. EDITHA VENERACION</p>
+                <p>2.FRANCISCO, JAN JORGE MALABANAN</p>
+                <p>3.VERA, ELEAZAR LEOPOLD</p>
+                <p>4.ANDAYA, VINCENT MARC MANINGAS</p>
+            </div>
+        </div>
+
+        <!-- CARDIOLOGIST -->
+        <div class="service-card">
+            <h3 class="clickable-card" onclick="toggleDoctor('cardio')">
+                Cardiologist
+            </h3>
+            <div id="cardio" class="doctor-list">
+               <P>1.CRUZ, JANNICE LORIE TUASON </P>
+               <P>2.VIUDEZ, EMILY MARCELO</P>
+            </div>
+        </div>
+     
+ <!-- DIABETOLOGIST -->
+        <div class="service-card">
+            <h3 class="clickable-card" onclick="toggleDoctor('dia')">
+              Diabetologist
+            </h3>
+            <div id="dia" class="doctor-list">
+                <p>1.BAYAN, LEAH JEANETTE CASTILLO</p>
+            </div>
+        </div>
+        <!-- IM PEDIATRICIAN -->
+        <div class="service-card">
+            <h3 class="clickable-card" onclick="toggleDoctor('imped')">
+                IM-Pediatrician
+            </h3>
+            <div id="imped" class="doctor-list">
+                <P>1.BAYAN, VIRGILIO URQUIZA</P>
+            </div>
+        </div>
+
+
+         <!-- PEDIATRICIAN -->
+        <div class="service-card">
+            <h3 class="clickable-card" onclick="toggleDoctor('ped')">
+               Pediatrician
+            </h3>
+            <div id="ped" class="doctor-list">
+                <p>1.DY, MA JOSEPHINE GO</p>
+                <P>2.MARQUEZ, DONNA FE DOCTOR</P>
+                <p>3.PAULINO, MARINEL MANDAPAT</p>
+                <p>4.RODRIQUEZ, LOURDES DELA PEÑA</p>
+                <p>5.TABIJIE, NATHANIEL MCJONNI</p>
+                <p>6.VERA-COTO, EVANGELINE MARIE LIGON</p>
+
+            </div>
+        </div>
+   <!--  NEPHROLOGIST -->
+        <div class="service-card">
+    <h3 class="clickable-card" onclick="toggleDoctor('nephro')">
+        Nephrologist
+    </h3>
+    <div id="nephro" class="doctor-list">
+        <p>1. CARREON, AILEEN SABINO</p>
+        <p>2. CORONEL, MARICHELLE PILE</p>
+        <p>3. PESEBRE-ONG, ANGELIE LORRAINE</p>
+        <p>4. SOTTA, LAARNI LOU MALONZO</p>
+    </div>
+</div>
+        <!-- OB-GYNE -->
+        <div class="service-card">
+            <h3 class="clickable-card" onclick="toggleDoctor('obgyne')">
+                OB-Gynecologist
+            </h3>
+            <div id="obgyne" class="doctor-list">
+                <p>1.FERRER, SHEILA SANTOS</p>
+                <p>2.FRANCO, FRIA ANN CORONEL</p>
+                <p>3.GATCHALIAN, LUCILA</p>
+                <p>4.LIMCHU, MICHELLE MADRIAGA</p>
+                <p>5.LOPEZ, ROXANNE ANGELINE BALONDO</p>
+                <p>6.RACHO, GRACE VALDECANTOS</p>
+                <p>7.RAMOS, RITA MALONZO</p>
+                <p>8.SISON, RAQUEL CRUZ</p>
+                <p>9.TABJIE, SHERRY LOU GATBONTON</p>
+                <p>10.VERA-DE JESUS EMALEEN LIGON</p>
+                <p>11.VICTORIA, KAMYLLE ANNE YU</p>
+            </div>
+        </div>
+  <!-- NEUROLOGIST -->
+        <div class="service-card">
+            <h3 class="clickable-card" onclick="toggleDoctor('neuro')">
+                Neurologist
+            </h3>
+            <div id="neuro" class="doctor-list">
+                <p>1.PORCIUNCULA, NINO EMERICO SUNGA</p>
+                <p>2.SANTIAGO RICHELLE ANN SORIA</p>
+                <p>3.SANTOS, EDREN DAENIEL</p>
+            </div>
+        </div>
+
+    </div>
+        <!-- ENDOCRINOLOGIST -->
+        <div class="service-card">
+            <h3 class="clickable-card" onclick="toggleDoctor('endoc')">
+                Endocrinologist
+            </h3>
+            <div id="endoc" class="doctor-list">
+                <p>1.CRUZ, MARIA NIKKI C.</p>
+            </div>
+        </div>
+
+           <!-- GASTROENTEROLOGIST -->
+        <div class="service-card">
+            <h3 class="clickable-card" onclick="toggleDoctor('gas')">
+                Gastroenterologist
+            </h3>
+            <div id="gas" class="doctor-list">
+                <p>1.CORONEL, GERBY DELA PENA</p>
+            </div>
+        </div>
+
+         <!-- GENERAL SURGEON -->
+        <div class="service-card">
+            <h3 class="clickable-card" onclick="toggleDoctor('gen')">
+               General Surgeon
+            </h3>
+            <div id="gen" class="doctor-list">
+                <p>1.COCHON, PAUL ANDREW SIAPCO</p>
+                <p>2.DE GUZMAN, JOHN ALDRIN VILLAMAYOR</p>
+                <p>3.DELA CRUZ, RAYMOND CASTRO</p>
+                <p>4.LOMBOY, MARK ANDREW STA CRUZ</p>
+                <p>5.MALANA, GLOMAR CACATIAN</p>
+                <p>6.REYES, VINCENT ANDREW VENTURA</p>
+                <p>7.ROXAS, STELLA VALERA</p>
+            </div>
+        </div>
+
+         <!-- ANESTHESIOLOGIST -->
+        <div class="service-card">
+            <h3 class="clickable-card" onclick="toggleDoctor('anes')">
+               Anesthesiologist
+            </h3>
+            <div id="anes" class="doctor-list">
+                <p>1.DELA CRUZ, MARIE AIZLE HIZON</p>
+                <p>2.FABILE, ANTONINO UY</p>
+                <p>3.FERNANDO, ELMER CURAMEN</p>
+                <p>4.LOMBOY, PRINCESS CLARISSA MARQUEZ</p> 
+                <p>5.ESCOTO, KATHLEEN ROSE IRISH R.</p>
+            </div>
+        </div>
+
+        <!-- ORTHOPAEDIC SURGEON -->
+        <div class="service-card">
+            <h3 class="clickable-card" onclick="toggleDoctor('ortho')">
+                Orthopaedic Surgeon
+            </h3>
+            <div id="ortho" class="doctor-list">
+                <p>1.SOLIS, FLORENCIO LIWAG JR</p>
+            </div>
+        </div>
+
+        <!-- DERMATOLOGIST -->
+        <div class="service-card">
+            <h3 class="clickable-card" onclick="toggleDoctor('derma')">
+                Dermatologist
+            </h3>
+            <div id="derma" class="doctor-list">
+                <p>1.AQUINO, IRENE ANASTACIA</p>
+            </div>
+        </div>
+
+    </div>
+     <!-- ONCOLOGIST -->
+        <div class="service-card">
+            <h3 class="clickable-card" onclick="toggleDoctor('oncol')">
+                Oncologist
+            </h3>
+            <div id="oncol" class="doctor-list">
+                <p>1.ORTEGA, CHESTER K.E</p>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- OPTHALMOLOGIST -->
+        <div class="service-card">
+            <h3 class="clickable-card" onclick="toggleDoctor('opta')">
+                Opthalmologist
+            </h3>
+            <div id="opta" class="doctor-list">
+                <p>1.PAULINO, VICTOR EPHRAIME VENERACION</p>
+                <p>2.TRINIDAD, RAPHAEL LUCILA</p>
+                <p>3.URDAUNDO, RALPH JASON CALIMAG</p>
+                <p>4.VILLANGCA, FRANCIS DOMINIC</p>
+            </div>
+        </div>
+
+         <!-- INFECTIOUS -->
+        <div class="service-card">
+            <h3 class="clickable-card" onclick="toggleDoctor('infec')">
+               Infectious
+            </h3>
+            <div id="infec" class="doctor-list">
+                <p>1.ZAPANTA, KRISTINA MARIE TROCIO</p>
+            </div>
+        </div>
+
+         <!-- RESIDENT -->
+        <div class="service-card">
+            <h3 class="clickable-card" onclick="toggleDoctor('resident')">
+                Resident
+            </h3>
+            <div id="resident" class="doctor-list">
+                <p>1.CURVA, MATT DEXTER</p>
+                <p>2.ILETO, DANIEL</p>
+                <p>3.NPOKA, CELESTINE</p> 
+                <p>4.VILLEGAS, MARCO RODRIGO</p>
+            </div>
+        </div>
+
+          <!-- Ultra Sound -->
+        <div class="service-card">
+            <h3 class="clickable-card" onclick="toggleDoctor('ultra')">
+                Ultra Sound
+            </h3>
+            <div id="ultra" class="doctor-list">
+                <p>1.ARROYO, ALVIN JOSEP</p>
+                <p>2.VIOLAGO, VALYSSA</p>
+            </div>
+        </div>
+
+    
+</section>
+
+<!-- JAVASCRIPT (KEEP THIS BEFORE </body>) -->
+<script>
+function toggleDoctor(id) {
+    const doctor = document.getElementById(id);
+
+    if (doctor.style.display === "block") {
+        doctor.style.display = "none";
+    } else {
+        doctor.style.display = "block";
+    }
+}
+</script>
+
+
+     
+
+    <div class="footer-bottom">
+        <p>© 2026 Emmanuel Hospital. All Rights Reserved.</p>
+    </div>
+</footer>
+
+</body>
+</html>

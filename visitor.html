@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visitor Guide | Emmanuel Hospital</title>
+
+<style>
+:root{
+  --primary-green:#0b3d2e;
+  --accent-yellow:#ffc107;
+}
+
+/* ================= GLOBAL STYLES ================= */
+body{
+  font-family: Arial, sans-serif;
+  background:#f9f9f9;
+  margin:0;
+  padding:0;
+}
+
+/* ================= TOP BAR ================= */
+.top-bar{
+  background: #0b3d2e;
+  color: white;
+  padding: 8px 0;
+  font-size: 14px;
+}
+
+.top-container{
+  width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.top-left a{
+  color: white;
+  text-decoration: none;
+  margin-right: 20px;
+  padding: 5px 8px;
+  transition: .3s;
+}
+
+.top-left a:hover{
+  color: #ffc107;
+}
+
+/* ================= NAVIGATION (ORIGINAL) ================= */
+nav{
+  background:#0b3d2e;
+  color:white;
+  padding:15px 0;
+}
+
+.nav-container{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  width:90%;
+  margin:auto;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.brand img{
+  width:45px;
+  height:45px;
+}
+
+.brand h2{
+  font-size:18px;
+  color:white;
+}
+
+.menu{
+  list-style:none;
+  display:flex;
+  gap:25px;
+}
+
+.menu li{
+  position:relative;
+}
+
+.menu li a{
+  color:white;
+  text-decoration:none;
+  padding:10px;
+  font-weight:bold;
+  font-size:16px;
+}
+
+.menu li a:hover{
+  background:#ffc107;
+  border-radius:5px;
+  color:#0b3d2e;
+}
+
+.dropdown-content{
+  display:none;
+  position:absolute;
+  background: rgba(173,166,166,0.95);
+  min-width:200px;
+  box-shadow:0 8px 16px rgba(0,0,0,0.2);
+  border-radius:5px;
+  padding:5px 0;
+  max-height:400px;
+  overflow-y:auto;
+}
+
+.dropdown:hover .dropdown-content{
+  display:block;
+}
+
+.dropdown-content a{
+  color:#333;
+  padding:10px 15px;
+  display:block;
+  text-decoration:none;
+  font-size:14px;
+}
+
+.dropdown-content a:hover{
+  background:#eee;
+  color:#0b3d2e;
+  font-weight:bold;
+}
+
+/* ================= HERO ================= */
+.hero{
+  width:85%;
+  margin:40px auto;
+  padding:60px 20px;
+  background:white;
+  border-radius:10px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.05);
+  text-align:center;
+  font-size:32px;
+  color:var(--primary-green);
+  font-weight:600;
+}
+
+/* ================= QUICK ACCESS BUTTONS ================= */
+.quick-buttons{
+  width:85%;
+  margin:30px auto;
+  display:flex;
+  justify-content:center;
+  gap:25px;
+  flex-wrap:wrap;
+}
+
+.square-btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:150px;
+  height:150px;
+  background:var(--primary-green);
+  color:white;
+  text-decoration:none;
+  font-weight:600;
+  font-size:16px;
+  border-radius:12px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+  transition:transform .3s, background .3s;
+  text-align:center;
+  padding:10px;
+}
+
+.square-btn:hover{
+  background:var(--accent-yellow);
+  color:var(--primary-green);
+  transform:translateY(-5px);
+}
+
+/* ================= GRID CARDS ================= */
+.grid{
+  width:85%;
+  margin:40px auto 60px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:30px;
+}
+
+.card{
+  background:white;
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:0 5px 15px rgba(0,0,0,0.05);
+  transition:.3s;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+}
+
+.card img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+}
+
+.card-content{
+  padding:15px 20px;
+}
+
+.card-title{
+  color:var(--primary-green);
+  font-weight:600;
+  margin-bottom:10px;
+  font-size:18px;
+}
+
+.card-content p,
+.card-content ol,
+.card-content ul{
+  color:#555;
+  line-height:1.5;
+  margin-bottom:10px;
+}
+
+.card-content ol,
+.card-content ul{
+  padding-left:20px;
+}
+
+/* ================= FOOTER ================= */
+footer{
+  background: var(--primary-green);
+  color:white;
+  text-align:center;
+  padding:20px;
+  margin-top:40px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:900px){
+  .nav-container{
+    flex-direction:column;
+    gap:15px;
+  }
+
+  .menu{
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:15px;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- TOP BAR & NAVIGATION (Original) -->
+<div class="top-bar">
+    <div class="top-container">
+        <div class="top-left">
+            <a href="ourdoctors.html">Our Doctors</a>
+            <a href="onlinetestresultt.html">Online Test Results</a>
+            <a href="billingg.html">Real-time Billing</a>
+            <a href="Appointment.html">Book An Appointment</a>
+        </div>
+        <div>02-8711-4141 📞</div>
+    </div>
+</div>
+
+<nav>
+    <div class="nav-container">
+        <div class="brand">
+            <img src="EM.png" alt="Hospital Logo">
+            <h2>EMMANUEL HOSPITAL</h2>
+        </div>
+
+        <ul class="menu">
+            <li><a href="mainn.html">Home</a></li>
+            <li class="dropdown">
+                <a href="about.html">About Us</a>
+                <div class="dropdown-content">
+                    <a href="#">Our History</a>
+                    <a href="#">Our Mission</a>
+                    <a href="#">Our Vision</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="patientsandvissitors.html">Patients & Visitors</a>
+                <div class="dropdown-content">
+                    <a href="#">Patient Room</a>
+                    <a href="#">Visitor Guide</a>
+                    <a href="#">Application Form</a>
+                    <a href="#">Patient Success stories</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="articles.html">Articles</a>
+                <div class="dropdown-content">
+                    <a href="#">Health Tips</a>
+                    <a href="#">News</a>
+                    <a href="#">Events</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="healthandservices.html">Health Services</a>
+                <div class="dropdown-content">
+                    <a href="#">Emergency Care</a>
+                    <a href="#">Outpatient Services</a>
+                    <a href="#">Inpatient Services</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="researchhh.html">Research Ethics Review Board</a>
+                <div class="dropdown-content">
+                    <a href="about.html">About</a>
+                    <a href="sops.html">SOPS</a>
+                    <a href="forms.html">Forms</a>
+                    <a href="protocols.html">2024 Approved Protocols</a>
+                    <a href="#">Process Flow</a>
+                    <a href="#">Cut Off And Meeting Dates</a>
+                    <a href="qsf.html">FAQS</a>
+                    <a href="#">Contact Us</a>
+                    <a href="#">Research Guidelines</a>
+                    <a href="#">Ethics Committee</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="trainings.html">Trainings</a>
+                <div class="dropdown-content">
+                    <a href="#">Medical Training</a>
+                    <a href="#">Staff Development</a>
+                </div>
+            </li>
+            <li><a href="#">Foundation</a></li>
+            <li><a href="contactus.html">Contact Us</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">Visitor Guide</div>
+
+<!-- QUICK ACCESS BUTTONS -->
+<div class="quick-buttons">
+    <a href="patientroom.html" class="square-btn">Patient Rooms</a>
+    <a href="visitor.html" class="square-btn">Visitor Guide</a>
+    <a href="applicationform.html" class="square-btn">Application Form</a>
+</div>
+
+<!-- GRID CARDS -->
+<div class="grid">
+
+    <div class="card">
+        <img src="qr-image.jpg" alt="QR Code">
+        <div class="card-content">
+            <div class="card-title">How to get to CGHMC (Waze App)</div>
+            <ol>
+                <li>Open the camera app on your mobile phone.</li>
+                <li>Line up the QR code in the camera frame.</li>
+                <li>Tap the notification to open the link.</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="parking.jpg" alt="Parking Guide">
+        <div class="card-content">
+            <div class="card-title">Parking Guide</div>
+            <ul>
+                <li>Parking is free for the first 15 minutes.</li>
+                <li>24-hour parking available at Medical Arts Building.</li>
+                <li>Valet services available from 6AM to 6PM.</li>
+                <li>Lost or damaged parking cards will have a fee.</li>
+                <li>Free shuttle services available between buildings.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="chapel.jpg" alt="Chapel">
+        <div class="card-content">
+            <div class="card-title">Chapel</div>
+            <p>Our chapel is located on the sixth floor of Building 1.</p>
+            <p>Masses are held Monday–Saturday at 12:00 noon, Saturday at 5:00 pm, and Sunday at 5:00 pm.</p>
+            <p>Confession available Monday–Saturday from 11:30 am to 12:30 pm.</p>
+        </div>
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <p>© 2024 Emmanuel Hospital</p>
+</footer>
+
+</body>
+</html>

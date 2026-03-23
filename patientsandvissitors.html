@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Navigation</title>
+
+    <style>
+        /* ================= GLOBAL STYLES ================= */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ================= TOP BAR ================= */
+        .top-bar {
+            background-color: #0b3d2e;
+            color: white;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+
+        .top-container {
+            width: 90%;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-left a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+            padding: 5px 8px;
+            transition: 0.3s;
+        }
+
+        .top-left a:hover {
+            color: #ffc107;
+        }
+
+        /* ================= NAVIGATION ================= */
+        nav {
+            background-color: #0b3d2e;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            margin: auto;
+        }
+
+        .nav-container .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-container .brand img {
+            width: 45px;
+            height: 45px;
+        }
+
+        .nav-container .brand h2 {
+            font-size: 18px;
+            color: white;
+        }
+
+        .menu {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        .menu li {
+            position: relative;
+        }
+
+        .menu li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            font-weight: bold;
+            font-size: 16px;
+            position: relative;
+        }
+
+        .menu li a:hover {
+            background-color: #ffc107;
+            color: #0b3d2e;
+            border-radius: 5px;
+        }
+
+        /* ================= HIGHLIGHT PATIENTS & VISITORS ================= */
+        .menu li a.highlight {
+            background-color: #ffc107;  /* Accent Yellow */
+            color: #0b3d2e;             /* Primary Green text */
+            border-radius: 5px;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: rgba(173, 166, 166, 0.9);
+            color: #333;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(7, 37, 21, 0.2);
+            z-index: 1;
+            padding: 10px;
+            border-radius: 5px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            opacity: 1;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+            font-weight: normal;
+            transition: 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #0a0a0a;
+            color: #0b3d2e;
+            font-weight: bold;
+        }
+
+        /* ================= INTRO ================= */
+        .intro {
+            width: 90%;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .intro h2 {
+            color: #0b3d2e;
+            margin-bottom: 15px;
+        }
+
+        .intro p {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* ================= ROOMS ================= */
+        .rooms-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            width: 90%;
+            margin: 30px auto;
+            justify-content: center;
+        }
+
+        .room-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 250px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .room-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s, filter 0.3s;
+        }
+
+        .room-card img:hover {
+            transform: scale(1.05);
+            filter: brightness(1.2);
+        }
+
+        .room-info {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .room-info h3 {
+            margin: 0 0 10px;
+            color: #0b3d2e;
+        }
+
+        .room-info p {
+            font-size: 14px;
+            color: #333;
+        }
+
+        /* ================= FOOTER ================= */
+        footer {
+            background-color: #0b3d2e;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 768px) {
+            .menu {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .rooms-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .room-card {
+                width: 90%;
+            }
+
+            .room-card img {
+                height: 180px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="top-container">
+            <div class="top-left">
+                <a href="ourdoctorss.html">Our Doctors</a>
+                <a href="onlinetestresult.php">Online Test Results</a>
+                <a href="billingg.html">Real-time Billing</a>
+                <a href="Appointment.html">Book An Appointment</a>
+            </div>
+            <div>02-8711-4141 📞</div>
+        </div>
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="nav-container">
+            <div class="brand">
+                <img src="EM.png" alt="Hospital Logo">
+                <h2>EMMANUEL HOSPITAL</h2>
+            </div>
+            <ul class="menu">
+                <li><a href="mainn.html">Home</a></li>
+                <li class="dropdown">
+                    <a href="about.html">About Us</a>
+                    <div class="dropdown-content">
+                        <a href="#">Our History</a>
+                        <a href="#">Our Mission</a>
+                        <a href="#">Our Vision</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="patientsandvissitors.html" class="highlight">Patients & Visitors</a>
+                    <div class="dropdown-content">
+                        <a href="#">Patient Room</a>
+                        <a href="#">Visitor Guide</a>
+                        <a href="#">Application Form</a>
+                        <a href="#">Patient Success stories</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="articles.html">Articles</a>
+                    <div class="dropdown-content">
+                        <a href="#">Health Tips</a>
+                        <a href="#">News</a>
+                        <a href="#">Events</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="healthandservices.html">Health Services</a>
+                    <div class="dropdown-content">
+                        <a href="#">Emergency Care</a>
+                        <a href="#">Outpatient Services</a>
+                        <a href="#">Inpatient Services</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="researchhh.html">Research Ethics Review Board</a>
+                    <div class="dropdown-content">
+                        <a href="#">About</a>
+                        <a href="#">SOPS</a>
+                        <a href="#">Forms</a>
+                        <a href="#">2024 Approved Protocols</a>
+                        <a href="#">Process Flow</a>
+                        <a href="#">Cut Off And Meeting Dates</a>
+                        <a href="#">FAQS</a>
+                        <a href="#">Contact Us</a>
+                        <a href="#">Research Guidelines</a>
+                        <a href="#">Ethics Committee</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="trainings.html">Trainings</a>
+                    <div class="dropdown-content">
+                        <a href="#">Medical Training</a>
+                        <a href="#">Staff Development</a>
+                    </div>
+                </li>
+                <li><a href="#">Foundation</a></li>
+                <li><a href="contactus.html">Contact Us</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- INTRO -->
+    <div class="intro">
+        <h2>Quality Care Meets Modern Comforts</h2>
+        <p>
+            A comfortable experience awaits you with every stay at Emmanuel Hospital,
+            where patient care meets modern comforts. Our hospital offers well-appointed
+            rooms designed to cater to every patient's needs. Featuring comfortable beds,
+            modern furniture, high-speed Wi-Fi, natural lighting, and a relaxing environment,
+            our rooms are your home away from home.
+        </p>
+    </div>
+
+    <!-- ROOMS -->
+    <div class="rooms-container">
+        <div class="room-card">
+            <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2" alt="Standard Room">
+            <div class="room-info">
+                <h3>Standard Patient Room</h3>
+                <p>Comfortable patient room equipped with hospital bed, visitor chair, air conditioning, and television.</p>
+            </div>
+        </div>
+
+        <div class="room-card">
+            <img src="https://images.unsplash.com/photo-1560185007-cde436f6a4d0" alt="Family Room">
+            <div class="room-info">
+                <h3>Family Patient Room</h3>
+                <p>Spacious room designed for patients with family members, featuring a dining area and comfortable seating.</p>
+            </div>
+        </div>
+
+        <div class="room-card">
+            <img src="https://images.unsplash.com/photo-1560449752-08d0c5f8f8c1" alt="Private Room">
+            <div class="room-info">
+                <h3>Private Patient Room</h3>
+                <p>Private rooms provide a peaceful recovery space with complete privacy and modern facilities.</p>
+            </div>
+        </div>
+
+        <div class="room-card">
+            <img src="https://images.unsplash.com/photo-1560185127-6ed189bf02f4" alt="Deluxe Room">
+            <div class="room-info">
+                <h3>Deluxe Patient Room</h3>
+                <p>Luxury room with premium comfort, spacious layout, and modern interior design.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2024 Emmanuel Hospital</p>
+        <p>Committed to Quality Healthcare Services</p>
+    </footer>
+
+</body>
+</html>

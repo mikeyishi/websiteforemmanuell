@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research Ethics Review Board - Emmanuel Hospital</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* TOP BAR */
+    .top-bar {
+        background-color: #0b3d2e;
+        color: white;
+        padding: 8px 0;
+        font-size: 14px;
+    }
+
+    .top-container {
+        width: 90%;
+        margin: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .top-left a {
+        color: white;
+        text-decoration: none;
+        margin-right: 20px;
+        padding: 5px 8px;
+        transition: 0.3s;
+    }
+
+    .top-left a:hover {
+        color: #ffc107;
+    }
+
+    /* NAVIGATION */
+    nav {
+        background-color: #0b3d2e;
+        color: white;
+        padding: 15px 0;
+        text-align: center;
+    }
+
+    .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 90%;
+        margin: auto;
+    }
+
+    .nav-container .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .nav-container .brand img {
+        width: 45px;
+        height: 45px;
+    }
+
+    .nav-container .brand h2 {
+        font-size: 18px;
+        color: white;
+    }
+
+    .menu {
+        list-style: none;
+        display: flex;
+        gap: 25px;
+    }
+
+    .menu li {
+        position: relative;
+    }
+
+    .menu li a {
+        color: white;
+        text-decoration: none;
+        padding: 10px;
+        font-weight: bold;
+    }
+
+    .menu li a:hover {
+        background-color: #ffc107;
+        border-radius: 5px;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: rgba(173, 166, 166, 0.9);
+        color: #333;
+        min-width: 160px;
+        padding: 10px;
+        border-radius: 5px;
+        z-index: 1;
+        transition: opacity 0.3s ease;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+        opacity: 1;
+    }
+
+    .dropdown-content a {
+        display: block;
+        padding: 10px 15px;
+        text-decoration: none;
+        color: #333;
+        font-weight: normal;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #0a0a0a;
+        color: #0b3d2e;
+        font-weight: bold;
+    }
+
+    /* HIGHLIGHT RESEARCH ETHICS REVIEW BOARD */
+    .research-highlight > a {
+        background-color: #ffc107; /* Highlight yellow */
+        color: #0b3d2e;            /* Dark green text */
+        border-radius: 5px;
+        padding: 10px 15px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    .research-highlight > a:hover {
+        background-color: #e6b800; /* Darker yellow on hover */
+        color: white;
+    }
+
+    /* PAGE TITLE */
+    .page-title {
+        text-align: center;
+        color: #0b3d2e;
+        margin: 30px 0;
+        font-size: 28px;
+    }
+
+    /* SUBMENU */
+    .submenu-bar {
+        background-color: #e5e5e5;
+        padding: 10px 0;
+        text-align: center;
+    }
+
+    .submenu a {
+        margin: 0 15px;
+        text-decoration: none;
+        color: #0b3d2e;
+        font-weight: bold;
+    }
+
+    .submenu a:hover {
+        color: #ffc107;
+    }
+
+    /* HIGHLIGHT FORMS LINK */
+    .submenu a.forms-highlight {
+        background-color: #ffc107;  /* yellow highlight */
+        color: #0b3d2e;             /* dark green text */
+        border-radius: 5px;
+        padding: 8px 12px;
+        transition: 0.3s;
+    }
+
+    .submenu a.forms-highlight:hover {
+        background-color: #e6b800;
+        color: white;
+    }
+
+    /* MAIN CONTENT */
+    .content {
+        width: 90%;
+        max-width: 900px;
+        margin: 30px auto;
+        overflow-x: auto;
+        background: #ffffff;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        font-size: 16px;
+        line-height: 1.8;
+        color: #333;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #0b3d2e;
+        color: white;
+    }
+
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    /* FOOTER */
+    footer {
+        background-color: #0b3d2e;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        margin-top: 50px;
+    }
+
+    @media (max-width: 768px) {
+        .menu {
+            flex-direction: column;
+        }
+
+        .submenu a {
+            display: block;
+            margin: 5px 0;
+        }
+    }
+
+    /* Highlighted submenu link */
+.submenu a.highlight {
+    background-color: #ffc107; /* yellow background */
+    color: #0b3d2e;            /* dark green text */
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.submenu a.highlight:hover {
+    background-color: #e6b800; /* darker yellow on hover */
+    color: white;
+}
+
+/* Highlight the specific submenu link */
+.submenu a.protocols-highlight {
+    background-color: #ffc107;  /* yellow background */
+    color: #0b3d2e;             /* dark green text */
+    border-radius: 5px;
+    padding: 8px 12px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.submenu a.protocols-highlight:hover {
+    background-color: #e6b800;  /* darker yellow on hover */
+    color: white;
+}
+</style>
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+    <div class="top-container">
+        <div class="top-left">
+            <a href="ourdoctorss.html">Our Doctors</a>
+            <a href="onlinetestresult.php">Online Test Results</a>
+            <a href="billing.html">Real-time Billing</a>
+            <a href="Appointment.html">Book An Appointment</a>
+        </div>
+        <div>02-8711-4141 📞</div>
+    </div>
+</div>
+
+<!-- NAVIGATION -->
+<nav>
+    <div class="nav-container">
+        <div class="brand">
+            <img src="EM.png" alt="Hospital Logo">
+            <h2>EMMANUEL HOSPITAL</h2>
+        </div>
+
+        <ul class="menu">
+            <li><a href="main.html">Home</a></li>
+            <li class="dropdown">
+                <a href="#">About Us</a>
+                <div class="dropdown-content">
+                    <a href="#">Our History</a>
+                    <a href="#">Our Mission</a>
+                    <a href="#">Our Vision</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="patientsandvisitors.html">Patients & Visitors</a>
+                <div class="dropdown-content">
+                    <a href="#">Patient Room</a>
+                    <a href="#">Visitor Guide</a>
+                    <a href="#">Application Form</a>
+                    <a href="#">Patient Success stories</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="article.html">Articles</a>
+                <div class="dropdown-content">
+                    <a href="#">Health Tips</a>
+                    <a href="#">News</a>
+                    <a href="#">Events</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="healthandservices.html">Health Services</a>
+                <div class="dropdown-content">
+                    <a href="#">Emergency Care</a>
+                    <a href="#">Outpatient Services</a>
+                    <a href="#">Inpatient Services</a>
+                </div>
+            </li>
+            <li class="dropdown research-highlight">
+                <a href="researchh.html">Research Ethics Review Board</a>
+                <div class="dropdown-content">
+                     <a href="about.html">About</a>
+                     <a href="sops.html">SOPS</a>
+                     <a href="forms.html">Forms</a>
+                     <a href="protocols.html">2024 Approved Protocols</a>
+                     <a href="#">Process Flow</a>
+                     <a href="#">Cut Off And Meeting Dates</a>
+                     <a href="qsf.html">FAQS</a>
+                     <a href="#">Contact Us</a>
+                     <a href="#">Research Guidelines</a>
+                     <a href="#">Ethics Committee</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="trainings.html">Trainings</a>
+                <div class="dropdown-content">
+                    <a href="#">Medical Training</a>
+                    <a href="#">Staff Development</a>
+                </div>
+            </li>
+            <li><a href="#">Foundation</a></li>
+            <li><a href="contactus.html">Contact Us</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- PAGE TITLE -->
+<h1 class="page-title">Research Ethics Review Board</h1>
+
+<!-- CENTERED SUBMENU -->
+<div class="submenu-bar">
+    <div class="submenu">
+        <a href="abbout.html">About</a>
+        <a href="sops.html">SOPS</a>
+        <a href="forms.html">Forms</a> 
+       <a href="protocols.html" class="protocols-highlight">2024 Approved Protocols</a>
+        <a href="#">Process Flow</a>
+        <a href="#">Cut off and meeting dates</a>
+        <a href="faqss.html">FAQ</a>
+        <a href="#">Contact Us</a>
+    </div>
+</div>
+
+
+<!-- MAIN CONTENT -->
+<div class="content">
+    <table>
+        <thead>
+            <tr>
+                <th>Protocol Title</th>
+                <th>Protocol Code</th>
+                <th>Date Approved</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>A Prospective study to evaluate the role of Ultrasound Elastography in the differential Diagnosis of Benign and Malignant TIRADS-4 Thyroid Nodules</td>
+                <td>CGHMEC RERB 2024-R-01</td>
+                <td>April 22, 2024</td>
+            </tr>
+            <tr>
+                <td>The impact of Thermal Ablation for patients with stage 4 colorectal cancer with liver metastases</td>
+                <td>CGHMEC RERB 2024-F-02</td>
+                <td>February 26, 2024</td>
+            </tr>
+            <tr>
+                <td>A Prospective comparative study between Goeke's and ellipsoid volume formula methods</td>
+                <td>CGHMEC RERB 2024-R-03</td>
+                <td>March 26, 2024</td>
+            </tr>
+            <tr>
+                <td>Association of CT Quantified visceral adiposity with presence of pancreatic steatosis</td>
+                <td>CGHMEC RERB 2024-R-04</td>
+                <td>February 12, 2024</td>
+            </tr>
+            <tr>
+                <td>Validity of HACOR Score to Predict Weaning Outcome from Mechanical Ventilation</td>
+                <td>CGHMEC RERB 2024-F-05</td>
+                <td>April 22, 2024</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <p>© 2024 Emmanuel Hospital</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hospital Navigation</title>
+
+<style>
+    /* ================= GLOBAL STYLES ================= */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* ================= TOP BAR ================= */
+    .top-bar {
+        background-color: #0b3d2e;
+        color: white;
+        padding: 8px 0;
+        font-size: 14px;
+    }
+
+    .top-container {
+        width: 90%;
+        margin: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .top-left a {
+        color: white;
+        text-decoration: none;
+        margin-right: 20px;
+        padding: 5px 8px;
+        transition: 0.3s;
+    }
+
+    .top-left a:hover {
+        color: #ffc107;
+    }
+
+    .top-container div {
+        font-size: 14px;
+    }
+
+    /* ================= NAVIGATION ================= */
+    nav {
+        background-color: #0b3d2e;
+        color: white;
+        padding: 15px 0;
+        text-align: center;
+    }
+
+    .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 90%;
+        margin: auto;
+        flex-wrap: wrap;
+    }
+
+    .nav-container .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .nav-container .brand img {
+        width: 45px;
+        height: 45px;
+    }
+
+    .nav-container .brand h2 {
+        font-size: 18px;
+        color: white;
+    }
+
+    .menu {
+        list-style: none;
+        display: flex;
+        gap: 25px;
+        flex-wrap: wrap;
+    }
+
+    .menu li {
+        position: relative;
+    }
+
+    .menu li a {
+        color: white;
+        text-decoration: none;
+        padding: 10px;
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    .menu li a:hover {
+        background-color: #ffc107;
+        border-radius: 5px;
+    }
+
+    .dropdown {
+        position: relative;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: rgba(173, 166, 166, 0.9);
+        color: #333;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px rgba(7, 37, 21, 0.2);
+        z-index: 1;
+        padding: 10px;
+        border-radius: 5px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+        opacity: 1;
+    }
+
+    .dropdown-content a {
+        color: #333;
+        padding: 10px 15px;
+        text-decoration: none;
+        display: block;
+        font-size: 14px;
+        font-weight: normal;
+        transition: 0.3s;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #0a0a0a;
+        color: #0b3d2e;
+        font-weight: bold;
+    }
+
+    /* ================= HERO ================= */
+    .hero h1 {
+        text-align: center;
+        color: #0b3d2e;
+        margin: 30px 0;
+        font-size: 32px;
+        font-weight: bold;
+    }
+
+    /* ================= SERVICES ================= */
+    .services-container {
+        display: flex;
+        gap: 40px;
+        width: 90%;
+        max-width: 1200px;
+        margin: 30px auto;
+        flex-wrap: wrap;
+    }
+
+    .services-left, .services-right {
+        flex: 1 1 400px;
+    }
+
+    .services-left {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .service-card {
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        text-align: center;
+        transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .service-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .service-card:hover {
+        transform: scale(1.05);
+        filter: brightness(1.1);
+    }
+
+    .service-title {
+        padding: 10px;
+        font-weight: bold;
+        color: #0b3d2e;
+    }
+
+    .services-right {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .services-right h2 {
+        text-align: center;
+        color: #0b3d2e;
+        margin-bottom: 20px;
+    }
+
+    .services-right p {
+        font-size: 16px;
+        line-height: 1.6;
+        color: #333;
+        margin-bottom: 15px;
+    }
+
+    /* ================= FOOTER ================= */
+    footer {
+        background-color: #0b3d2e;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        margin-top: 50px;
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 768px) {
+        .menu {
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .nav-container {
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .services-container {
+            flex-direction: column;
+        }
+
+        .service-card img {
+            height: 150px;
+        }
+    }
+
+    /* ACTIVE NAVIGATION LINK */
+.menu li a.active {
+    background-color: #ffc107;
+    color: #0b3d2e;
+    border-radius: 5px;
+}
+</style>
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="top-container">
+            <div class="top-left">
+                <a href="ourdoctorss.html">Our Doctors</a>
+                <a href="onlinetestresult.php">Online Test Results</a>
+                <a href="billing.html">Real-time Billing</a>
+                <a href="Appointment.html">Book An Appointment</a>
+            </div>
+            <div>02-8711-4141 📞</div>
+        </div>
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="nav-container">
+            <div class="brand">
+                <img src="EM.png" alt="Hospital Logo">
+                <h2>EMMANUEL HOSPITAL</h2>
+            </div>
+
+            <ul class="menu">
+                <li><a href="mainn.html">Home</a></li>
+                <li class="dropdown">
+                    <a href="about.html">About Us</a>
+                    <div class="dropdown-content">
+                        <a href="#">Our History</a>
+                        <a href="#">Our Mission</a>
+                        <a href="#">Our Vision</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="patientsandvisitors.html">Patients & Visitors</a>
+                    <div class="dropdown-content">
+                        <a href="#">Patient Room</a>
+                        <a href="#">Visitor Guide</a>
+                        <a href="#">Application Form</a>
+                        <a href="#">Patient Success Stories</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="articles.html">Articles</a>
+                    <div class="dropdown-content">
+                        <a href="#">Health Tips</a>
+                        <a href="#">News</a>
+                        <a href="#">Events</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="healthandservices.html" class="active">Health Services</a>
+                    <div class="dropdown-content">
+                        <a href="#">Emergency Care</a>
+                        <a href="#">Outpatient Services</a>
+                        <a href="#">Inpatient Services</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="researchhh.html">Research Ethics Review Board</a>
+                    <div class="dropdown-content">
+                        <a href="abooutt.html">About</a>
+                        <a href="sops.html">SOPS</a>
+                        <a href="forms.html">Forms</a>
+                        <a href="protocols.html">2024 Approved Protocols</a>
+                        <a href="#">Process Flow</a>
+                        <a href="#">Cut Off And Meeting Dates</a>
+                        <a href="qsf.html">FAQS</a>
+                        <a href="#">Contact Us</a>
+                        <a href="#">Research Guidelines</a>
+                        <a href="#">Ethics Committee</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="training.html">Trainings</a>
+                    <div class="dropdown-content">
+                        <a href="#">Medical Training</a>
+                        <a href="#">Staff Development</a>
+                    </div>
+                </li>
+                <li><a href="#">Foundation</a></li>
+                <li><a href="contactus.html">Contact Us</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <h1>Our Health & Services</h1>
+    </section>
+
+    <!-- SERVICES -->
+    <div class="services-container">
+        <div class="services-left">
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1580281657521-3b2f9f5c4c68">
+                <div class="service-title">Cancer Institute</div>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5">
+                <div class="service-title">Institute of Urology</div>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1588776814547-2c9e4687f3b0">
+                <div class="service-title">Cardiology Center</div>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1580281657523-4f7f9f5c4c69">
+                <div class="service-title">Maternity & Childcare</div>
+            </div>
+        </div>
+
+        <div class="services-right">
+            <h2>About Our Health Services</h2>
+            <p><strong>Cancer Institute:</strong> Provides comprehensive cancer care including diagnostics, chemotherapy, radiation therapy, and patient support.</p>
+            <p><strong>Institute of Urology:</strong> Specialized in treating urinary tract disorders, kidney stones, and urological surgeries with advanced equipment.</p>
+            <p><strong>Cardiology Center:</strong> Focused on heart health, offering diagnostics, interventions, and rehabilitation for cardiovascular patients.</p>
+            <p><strong>Maternity & Childcare:</strong> Comprehensive prenatal, delivery, and pediatric care with experienced specialists.</p>
+            <p>We aim to provide state-of-the-art facilities and expert care for all patients in a safe and comfortable environment.</p>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2024 Emmanuel Hospital</p>
+    </footer>
+
+</body>
+</html>

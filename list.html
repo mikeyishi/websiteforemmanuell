@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Doctor Directory | Emmanuel Hospital</title>
+
+<style>
+/* RESET */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* LAYOUT */
+body{
+    background:#f4f6f9;
+}
+
+.container{
+    display:flex;
+    height:100vh;
+}
+
+/* SIDEBAR */
+.sidebar{
+    width:260px;
+    background:#ffffff;
+    padding:20px;
+    border-right:1px solid #ddd;
+    overflow-y:auto;
+}
+
+.sidebar h2{
+    margin-bottom:15px;
+    color:#2c3e50;
+}
+
+.sidebar label{
+    display:block;
+    margin:8px 0;
+    cursor:pointer;
+    font-size:14px;
+}
+
+/* MAIN CONTENT */
+.main{
+    flex:1;
+    padding:20px;
+}
+
+/* SEARCH BAR */
+.search-box{
+    margin-bottom:20px;
+}
+
+.search-box input{
+    width:100%;
+    padding:12px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    font-size:16px;
+}
+
+/* TABLE */
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:#fff;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+th{
+    background:#0077b6;
+    color:white;
+    padding:12px;
+}
+
+td{
+    padding:12px;
+    text-align:center;
+    border-bottom:1px solid #eee;
+}
+
+tr:hover{
+    background:#f1f9ff;
+}
+
+/* DOCTOR IMAGE */
+.doctor-img{
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid #0077b6;
+}
+
+/* TITLE */
+.title{
+    font-size:24px;
+    margin-bottom:10px;
+    color:#0077b6;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR SPECIALIZATION -->
+    <div class="sidebar">
+        <h2>Specialization</h2>
+        <label><input type="checkbox" value="Cardiology" class="filter"> Cardiology</label>
+        <label><input type="checkbox" value="Neurology" class="filter"> Neurology</label>
+        <label><input type="checkbox" value="Pediatrics" class="filter"> Pediatrics</label>
+        <label><input type="checkbox" value="Dermatology" class="filter"> Dermatology</label>
+        <label><input type="checkbox" value="Surgery" class="filter"> General Surgery</label>
+        <label><input type="checkbox" value="Orthopedics" class="filter"> Orthopedics</label>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main">
+        <div class="title">Doctor Directory</div>
+
+        <!-- SEARCH BAR -->
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search doctor name...">
+        </div>
+
+        <!-- DOCTOR TABLE -->
+        <table id="doctorTable">
+            <thead>
+                <tr>
+                    <th>Photo</th>
+                    <th>Name</th>
+                    <th>Specialization</th>
+                    <th>Contact</th>
+                    <th>Schedule</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr data-specialization="Cardiology">
+                    <td><img src="images/doc1.jpg" class="doctor-img"></td>
+                    <td>Dr. Maria Santos</td>
+                    <td>Cardiology</td>
+                    <td>0912-345-6789</td>
+                    <td>Mon-Wed</td>
+                </tr>
+
+                <tr data-specialization="Neurology">
+                    <td><img src="images/doc2.jpg" class="doctor-img"></td>
+                    <td>Dr. John Cruz</td>
+                    <td>Neurology</td>
+                    <td>0913-567-1234</td>
+                    <td>Tue-Thu</td>
+                </tr>
+
+                <tr data-specialization="Pediatrics">
+                    <td><img src="images/doc3.jpg" class="doctor-img"></td>
+                    <td>Dr. Angela Reyes</td>
+                    <td>Pediatrics</td>
+                    <td>0915-222-4455</td>
+                    <td>Mon-Fri</td>
+                </tr>
+
+                <tr data-specialization="Dermatology">
+                    <td><img src="images/doc4.jpg" class="doctor-img"></td>
+                    <td>Dr. Kevin Lopez</td>
+                    <td>Dermatology</td>
+                    <td>0916-888-2233</td>
+                    <td>Sat</td>
+                </tr>
+
+                <tr data-specialization="Surgery">
+                    <td><img src="images/doc5.jpg" class="doctor-img"></td>
+                    <td>Dr. Michael Tan</td>
+                    <td>General Surgery</td>
+                    <td>0917-999-1122</td>
+                    <td>Mon-Thu</td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+// SEARCH FUNCTION
+document.getElementById("searchInput").addEventListener("keyup", function() {
+    let filter = this.value.toLowerCase();
+    let rows = document.querySelectorAll("#doctorTable tbody tr");
+
+    rows.forEach(row => {
+        let name = row.cells[1].textContent.toLowerCase();
+        row.style.display = name.includes(filter) ? "" : "none";
+    });
+});
+
+// SIDEBAR FILTER FUNCTION
+const checkboxes = document.querySelectorAll(".filter");
+
+checkboxes.forEach(box => {
+    box.addEventListener("change", filterDoctors);
+});
+
+function filterDoctors(){
+    const selected = Array.from(checkboxes)
+        .filter(cb => cb.checked)
+        .map(cb => cb.value);
+
+    const rows = document.querySelectorAll("#doctorTable tbody tr");
+
+    rows.forEach(row => {
+        const spec = row.getAttribute("data-specialization");
+        if(selected.length === 0 || selected.includes(spec)){
+            row.style.display = "";
+        } else {
+            row.style.display = "none";
+        }
+    });
+}
+</script>
+
+</body>
+</html>
